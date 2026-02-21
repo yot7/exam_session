@@ -4,7 +4,66 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d509ac3-0ba1-4915-ad3f-7b9be1c5a26d" name="Changes" comment="" />
+    <list default="true" id="9d509ac3-0ba1-4915-ad3f-7b9be1c5a26d" name="Changes" comment="Changes in base structure and base look for the app">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exams/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majors/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majors/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majors/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majors/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majors/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majors/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majors/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/exam_symbol.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/404.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/common/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/common/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/exam_halls/details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/exam_halls/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/exams/details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/exams/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/majors/details.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/majors/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/exam_session.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/exam_session.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_hall/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_session/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_session/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_session/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_session/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/major/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,11 +173,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771660109130</updated>
-      <workItem from="1771660110450" duration="10111000" />
+      <workItem from="1771660110450" duration="10524000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changes in base structure and base look for the app" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes in base structure and base look for the app" />
   </component>
 </project>
