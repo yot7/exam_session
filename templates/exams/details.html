@@ -1,0 +1,59 @@
+{% extends 'common/base.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4">{{ searched_exam.subject }}</h1>
+        <p class="lead">Exam details and assigned halls.</p>
+        <a href="{% url 'exams:list' %}" class="btn btn-secondary">Back to Exams List</a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Exam Information
+            </div>
+            <div class="card-body">
+                <p><strong>Subject:</strong> {{ searched_exam.subject }}</p>
+                <p><strong>Major:</strong> {{ searched_exam.major.name|default:"N/A" }}</p>
+                <p><strong>Date:</strong> {{ searched_exam.date|date:"F j, Y" }}</p>
+                <p><strong>Time:</strong> {{ searched_exam.start_time|time:"g:i a" }} - {{ searched_exam.end_time|time:"g:i a" }}</p>
+                <p><strong>Examinees:</strong> {{ searched_exam.number_of_examinees }}</p>
+                <p><strong>Needs Computers:</strong> {{ searched_exam.needs_computers|yesno:"Yes,No" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3>Assigned Exam Halls</h3>
+        {% if searched_exam.exam_halls.all %}
+            <div class="row">
+                {% for hall in searched_exam.exam_halls.all %}
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ hall.name }}</h5>
+                            <p class="card-text">
+                                <strong>Capacity:</strong> {{ hall.capacity }}<br>
+                                <strong>Computer Room:</strong> {{ hall.is_computer_room|yesno:"Yes,No" }}
+                            </p>
+                            <a href="{% url 'exam_halls:details' hall.pk %}" class="btn btn-primary">View Hall Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No exam halls assigned yet.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

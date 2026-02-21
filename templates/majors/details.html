@@ -1,0 +1,58 @@
+{% extends 'common/base.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4">{{ searched_major.name }}</h1>
+        <p class="lead">Details and available exams for this major.</p>
+        <a href="{% url 'majors:list' %}" class="btn btn-secondary">Back to Majors List</a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Major Information
+            </div>
+            <div class="card-body">
+                <p><strong>Name:</strong> {{ searched_major.name }}</p>
+                <p><strong>Created At:</strong> {{ searched_major.created_at|date:"F j, Y" }}</p>
+                <p><strong>Last Updated:</strong> {{ searched_major.updated_at|date:"F j, Y" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3>Available Exams</h3>
+        {% if searched_major.exams.all %}
+            <div class="row">
+                {% for exam in searched_major.exams.all %}
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ exam.subject }}</h5>
+                            <p class="card-text">
+                                <strong>Date:</strong> {{ exam.date|date:"F j, Y" }}<br>
+                                <strong>Time:</strong> {{ exam.start_time|time:"g:i a" }} - {{ exam.end_time|time:"g:i a" }}<br>
+                                <strong>Examinees:</strong> {{ exam.number_of_examinees }}<br>
+                                <strong>Needs Computers:</strong> {{ exam.needs_computers|yesno:"Yes,No" }}
+                            </p>
+                            <a href="{% url 'exams:details' exam.pk %}" class="btn btn-primary">View Exam Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No exams available for this major.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

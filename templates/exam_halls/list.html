@@ -1,0 +1,40 @@
+{% extends 'common/base.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4">Exam Halls</h1>
+        <p class="lead">List of all available exam halls.</p>
+    </div>
+</div>
+
+<div class="row">
+    {% if list_exam_halls %}
+        {% for hall in list_exam_halls %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ hall.name }}</h5>
+                    <p class="card-text">
+                        <strong>Capacity:</strong> {{ hall.capacity }}<br>
+                        <strong>Computer Room:</strong> {{ hall.is_computer_room|yesno:"Yes,No" }}
+                    </p>
+                    <a href="{% url 'exam_halls:details' hall.pk %}" class="btn btn-primary">View Details</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Created: {{ hall.created_at|date:"M d, Y" }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                No exam halls found.
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
