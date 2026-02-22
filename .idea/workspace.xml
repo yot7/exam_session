@@ -5,64 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d509ac3-0ba1-4915-ad3f-7b9be1c5a26d" name="Changes" comment="Changes in base structure and base look for the app">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exams/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/majors/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/majors/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/majors/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/majors/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/majors/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/majors/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/majors/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/exam_symbol.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/404.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/common/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/common/home.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/exam_halls/details.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/exam_halls/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/exams/details.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/exams/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/majors/details.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/majors/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/exam_session.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/exam_session.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common/mixins.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exam_halls/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/majors/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/exam_halls/create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/exam_halls/delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/exam_halls/edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/majors/create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/majors/delete.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/majors/edit.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/migrations/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_hall/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_session/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_session/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_session/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_session/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/migrations/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/major/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_halls/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_halls/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_halls/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/majors/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/majors/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/majors/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/exam_halls/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exam_halls/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/exam_halls/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exam_halls/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/majors/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/majors/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/majors/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/majors/list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,51 +44,52 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "yot7"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yot7&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yot7/exam_session.git",
-    "accountId": "8502f9b2-3ab7-4923-93ac-2c122d6bdc26"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yot7/exam_session.git&quot;,
+    &quot;accountId&quot;: &quot;8502f9b2-3ab7-4923-93ac-2c122d6bdc26&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="39yErRCEA1dsT4PwqB3rvIH8OUm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Django Server.exam_session.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Django Server.exam_session.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\kamen\PycharmProjects\DjangoBasics\exam_session\templates" />
@@ -173,8 +137,34 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771660109130</updated>
-      <workItem from="1771660110450" duration="10524000" />
+      <workItem from="1771660110450" duration="10833000" />
+      <workItem from="1771739043926" duration="15899000" />
     </task>
+    <task id="LOCAL-00001" summary="Changes in base structure and base look for the app">
+      <option name="closed" value="true" />
+      <created>1771673998825</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1771673998825</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Changes in base structure and base look for the app">
+      <option name="closed" value="true" />
+      <created>1771674109182</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1771674109182</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Changes in base structure and base look for the app">
+      <option name="closed" value="true" />
+      <created>1771674258154</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1771674258154</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

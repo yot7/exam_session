@@ -21,6 +21,8 @@
                 <p><strong>Name:</strong> {{ searched_major.name }}</p>
                 <p><strong>Created At:</strong> {{ searched_major.created_at|date:"F j, Y" }}</p>
                 <p><strong>Last Updated:</strong> {{ searched_major.updated_at|date:"F j, Y" }}</p>
+                <a href="{% url 'majors:edit' searched_major.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'majors:delete' searched_major.pk %}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

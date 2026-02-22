@@ -5,8 +5,19 @@ from common.models import TimeStampModel
 
 # Create your models here.
 class Major(TimeStampModel):
-    name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(max_length=50, unique=True, blank=True)
+    name = models.CharField(
+        max_length=50,
+        unique=True,
+        error_messages={
+            'unique': 'A major with this name already exists.'
+        }
+    )
+    description = models.TextField(blank=True)
+    slug = models.SlugField(
+        max_length=50,
+        unique=True,
+        blank=True
+    )
 
     class Meta:
         ordering = ['name']

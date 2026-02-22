@@ -22,6 +22,8 @@
                 <p><strong>Capacity:</strong> {{ searched_exam_hall.capacity }}</p>
                 <p><strong>Computer Room:</strong> {{ searched_exam_hall.is_computer_room|yesno:"Yes,No" }}</p>
                 <p><strong>Created At:</strong> {{ searched_exam_hall.created_at|date:"F j, Y" }}</p>
+                <a href="{% url 'exam_halls:edit' searched_exam_hall.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'exam_halls:delete' searched_exam_hall.pk %}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

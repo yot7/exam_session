@@ -4,7 +4,13 @@ from common.models import TimeStampModel
 
 # Create your models here.
 class ExamHall(TimeStampModel):
-    name = models.CharField(max_length=50)
+    name = models.CharField(
+        max_length=50,
+        unique=True,
+        error_messages={
+            'unique': 'An exam hall with this name already exists.'
+        }
+    )
     capacity = models.PositiveIntegerField()
     is_computer_room = models.BooleanField(default=False)
 
