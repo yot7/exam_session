@@ -63,6 +63,11 @@ def exam_hall_edit(request: HttpRequest, pk: int) -> HttpResponse:
     form = ExamHallEditForm(request.POST or None, instance=searched_exam_hall)
 
     if request.method == 'POST' and form.is_valid():
+        if searched_exam_hall.hosted_exams.exists():
+            original_hall = ExamHall.objects.get(pk=pk)
+            form.instance.capacity = original_hall.capacity
+            form.instance.is_computer_room = original_hall.is_computer_room
+
         form.save()
         return redirect('exam_halls:list')
 
@@ -73,11 +78,22 @@ def exam_hall_edit(request: HttpRequest, pk: int) -> HttpResponse:
 
     return render(request, 'exam_halls/edit.html', context)
 
+
+def exam_hall_delete_error(request: HttpRequest) -> HttpResponse:
+    context = {
+        'page_title': 'Delete Error'
+    }
+    return render(request, 'exam_halls/delete_error.html', context)
+
+
 def exam_hall_delete(request: HttpRequest, pk: int) -> HttpResponse:
     searched_exam_hall = get_object_or_404(ExamHall, pk=pk)
     form = ExamHallDeleteForm(request.POST or None, instance=searched_exam_hall)
 
     if request.method == 'POST' and form.is_valid():
+        if searched_exam_hall.hosted_exams.exists():
+            return redirect('exam_halls:delete_error')
+
         searched_exam_hall.delete()
         return redirect('exam_halls:list')
 

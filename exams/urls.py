@@ -1,9 +1,16 @@
-from django.urls import path
-from exams.views import exams_list, exam_details
+from django.urls import path, include
+from exams.views import exam_details, ExamListView, ExamCreateWizard, ExamEditWizard, exam_hall_delete
 
 app_name = 'exams'
 
+exam_patterns = [
+    path('', exam_details, name='details'),
+    path('edit/', ExamEditWizard.as_view(), name='edit'),
+    path('delete/', exam_hall_delete, name='delete'),
+]
+
 urlpatterns = [
-    path('', exams_list, name='list'),
-    path('<int:pk>/', exam_details, name='details')
+    path('', ExamListView.as_view(), name='list'),
+    path('create/', ExamCreateWizard.as_view(), name='create'),
+    path('<int:pk>/', include(exam_patterns)),
 ]

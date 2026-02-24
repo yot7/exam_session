@@ -1,0 +1,22 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">Warning</h1>
+        <p class="lead">
+            This exam hall cannot be deleted because it is currently assigned to one or more exams.
+        </p>
+        <p class="card-text text-muted">
+             Please reassign or delete the associated exams before attempting to delete this hall.
+         </p>
+        <img src="{% static 'images/img.png' %}" alt="Exams Coming" >
+        <div class="d-grid gap-2 d-md-flex justify-content-center mt-4">
+         <a href="{% url 'exam_halls:list' %}" class="btn btn-primary">Back to Exam Halls</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

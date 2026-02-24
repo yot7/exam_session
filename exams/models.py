@@ -18,18 +18,13 @@ class Exam(TimeStampModel):
         'exam_halls.ExamHall',
         related_name='hosted_exams'
     )
-    date = models.DateField(
-        # TODO: Validation
-    )
-    start_time = models.TimeField(
-        # TODO: Validation
-    )
-    end_time = models.TimeField(
-        # TODO: Validation
-    )
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
 
     class Meta:
         ordering = ['date']
+        unique_together = ['subject', 'major']
 
     def __str__(self):
         return f'{self.subject}'

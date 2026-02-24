@@ -12,7 +12,7 @@ class ExamHallFormBasic(forms.ModelForm):
             'capacity': forms.NumberInput(attrs={
                 'initial': 50,
                 'min': 15,
-                'max': 200,
+                'max': 400,
                 'step': 5,
             }),
         }
@@ -20,6 +20,14 @@ class ExamHallFormBasic(forms.ModelForm):
             'name': 'Room name:',
             'is_computer_room': 'Is this a computer room?'
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        if not 15 <= cleaned_data.get('capacity') <= 400:
+            self.add_error('capacity', 'Capacity must be between 15 and 400')
+
+        return cleaned_data
 
 class ExamHallCreateForm(ExamHallFormBasic):
     ...
@@ -43,7 +51,7 @@ class ExamHallSearchFrom(forms.Form):
     )
     min_capacity = forms.IntegerField(
         min_value=15,
-        max_value=200,
+        max_value=400,
         required=False,
         initial=15,
         label='Minimum capacity:',
