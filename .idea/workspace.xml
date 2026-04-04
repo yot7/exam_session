@@ -4,8 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d509ac3-0ba1-4915-ad3f-7b9be1c5a26d" name="Changes" comment="Handling secret data">
+    <list default="true" id="9d509ac3-0ba1-4915-ad3f-7b9be1c5a26d" name="Changes" comment="Fixing migrations">
+      <change afterPath="$PROJECT_DIR$/accounts/backends.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/choices.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/templatetags/profile_tags.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/faculties/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/accounts/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/accounts/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/accounts/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/faculties/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_halls/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_session/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_session/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam_session/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_session/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exams/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exams/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/majors/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/common/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,12 +51,12 @@
     &quot;assignee&quot;: &quot;yot7&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yot7/exam_session.git",
-    "accountId": "8e9e3c4b-141d-419f-9ae6-95a118cd0a55"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yot7/exam_session.git&quot;,
+    &quot;accountId&quot;: &quot;8e9e3c4b-141d-419f-9ae6-95a118cd0a55&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -57,10 +75,12 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
     &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kamenzherkov/PycharmProjects/exam_session&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -157,7 +177,12 @@
       <workItem from="1771739043926" duration="16496000" />
       <workItem from="1771828318517" duration="39273000" />
       <workItem from="1773733533559" duration="1660000" />
-      <workItem from="1773735209188" duration="3263000" />
+      <workItem from="1773735209188" duration="8426000" />
+      <workItem from="1773905817427" duration="28000" />
+      <workItem from="1774947214448" duration="757000" />
+      <workItem from="1775028905185" duration="10328000" />
+      <workItem from="1775114553954" duration="6125000" />
+      <workItem from="1775295381899" duration="8427000" />
     </task>
     <task id="LOCAL-00001" summary="Changes in base structure and base look for the app">
       <option name="closed" value="true" />
@@ -199,7 +224,23 @@
       <option name="project" value="LOCAL" />
       <updated>1773737477256</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixing migrations">
+      <option name="closed" value="true" />
+      <created>1773738725392</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1773738725392</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fixing migrations">
+      <option name="closed" value="true" />
+      <created>1773738842361</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1773738842361</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,9 +261,10 @@
     <MESSAGE value="Changes in base structure and base look for the app" />
     <MESSAGE value="Added forms for 2 of the apps." />
     <MESSAGE value="Handling secret data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Handling secret data" />
+    <MESSAGE value="Fixing migrations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing migrations" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/exam_session$main.coverage" NAME="main Coverage Results" MODIFIED="1771892845840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/exam_session$main.coverage" NAME="main Coverage Results" MODIFIED="1775119508483" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

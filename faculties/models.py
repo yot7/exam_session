@@ -1,31 +1,25 @@
 from django.db import models
 from django.utils.text import slugify
+
 from common.models import TimeStampModel
 
 
 # Create your models here.
-class Major(TimeStampModel):
+class Faculty(TimeStampModel):
     name = models.CharField(
         max_length=50,
         unique=True,
         error_messages={
-            'unique': 'A major with this name already exists.'
+            'unique': 'A faculty with this name already exists.'
         }
     )
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, null=True)
+    location = models.CharField(max_length=150)
     slug = models.SlugField(
         max_length=50,
         unique=True,
         blank=True
     )
-    faculty = models.ForeignKey(
-        'faculties.Faculty',
-        on_delete=models.CASCADE,
-        related_name='majors',
-    )
-
-    class Meta:
-        ordering = ['name']
 
     def save(self, *args, **kwargs) -> None:
         if not self.slug:
@@ -33,6 +27,8 @@ class Major(TimeStampModel):
 
         super().save(*args, **kwargs)
 
-
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['name']

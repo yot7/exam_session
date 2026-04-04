@@ -35,6 +35,8 @@ ALLOWED_HOSTS = [host for host in os.getenv('ALLOWED_HOSTS').split(',') if host]
 # Application definition
 
 PROJECT_APPS = [
+    'accounts',
+    'faculties',
     'majors',
     'exams',
     'exam_halls',
@@ -113,6 +115,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.UsernameBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -135,3 +141,8 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'accounts.ExamSessionUser'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'common:home'
+LOGOUT_REDIRECT_URL = 'common:home'

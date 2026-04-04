@@ -128,7 +128,7 @@ class ExamEditWizard(SessionWizardView):
         return redirect('exams:details', pk)
 
 
-def exam_hall_delete(request: HttpRequest, pk: int):
+def exam_delete(request: HttpRequest, pk: int):
     searched_exam = get_object_or_404(Exam, pk=pk)
     form = ExamDeleteForm(request.POST or None, instance=searched_exam)
 

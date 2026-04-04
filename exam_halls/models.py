@@ -13,6 +13,11 @@ class ExamHall(TimeStampModel):
     )
     capacity = models.PositiveIntegerField()
     is_computer_room = models.BooleanField(default=False)
+    faculty = models.ForeignKey(
+        'faculties.Faculty',
+        on_delete=models.CASCADE,
+        related_name='exam_halls',
+    )
 
     class Meta:
         ordering = ['name']

@@ -1,0 +1,60 @@
+{% extends 'common/base.html' %}
+{% load profile_tags %}
+
+{% block title %}Profile - Exam Session{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card mt-5 shadow-sm border-0">
+            <div class="card-header bg-primary text-white text-center py-4 rounded-top">
+                <div class="mb-3 d-flex justify-content-center">
+                    <!-- Placeholder avatar icon using bootstrap icons or simply a styled div -->
+                    <div class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold;">
+                        {{ user.username|first|upper }}
+                    </div>
+                </div>
+                <h3 class="mb-0">{{ user.username }}'s Profile</h3>
+            </div>
+            <div class="card-body p-4">
+                <div class="row mb-3 border-bottom pb-2">
+                    <div class="col-sm-4 fw-bold text-muted">Username:</div>
+                    <div class="col-sm-8">{{ user.username }}</div>
+                </div>
+                <div class="row mb-3 border-bottom pb-2">
+                    <div class="col-sm-4 fw-bold text-muted">Email:</div>
+                    <div class="col-sm-8">{{ user.email|default:"Not provided" }}</div>
+                </div>
+                <div class="row mb-3 border-bottom pb-2">
+                    <div class="col-sm-4 fw-bold text-muted">Name:</div>
+                    <div class="col-sm-8">{{ user.first_name }} {{ user.last_name }}</div>
+                </div>
+                <div class="row mb-3 border-bottom pb-2">
+                    <div class="col-sm-4 fw-bold text-muted">
+                        {% display_rank_or_role user %}
+                    </div>
+                    <div class="col-sm-8">{{ user.get_academic_rank_display|default:user.academic_rank|default:"Not provided" }}</div>
+                </div>
+                <div class="row mb-3 border-bottom pb-2">
+                    <div class="col-sm-4 fw-bold text-muted">Majors:</div>
+                    <div class="col-sm-8">
+                        {% if user.majors.all %}
+                            <ul class="list-unstyled mb-0">
+                                {% for major in user.majors.all %}
+                                    <li>{{ major.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            Not provided
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <a href="{% url 'common:home' %}" class="btn btn-outline-primary">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
