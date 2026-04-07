@@ -4,77 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d509ac3-0ba1-4915-ad3f-7b9be1c5a26d" name="Changes" comment="Adding accounts and faculties.">
-      <change afterPath="$PROJECT_DIR$/accounts/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/faculties/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/400.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/403.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/405.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/500.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/common/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/faculties/create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/faculties/delete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/faculties/details.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/faculties/edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/accounts/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/accounts/test_forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/accounts/test_views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/common/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/common/test_views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/exam_halls/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/exam_halls/test_forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/exams/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/exams/test_forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/exams/test_views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/faculties/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/faculties/test_forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/faculties/test_views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/majors/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/majors/test_forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/majors/test_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.template" beforeDir="false" afterPath="$PROJECT_DIR$/.env.template" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9d509ac3-0ba1-4915-ad3f-7b9be1c5a26d" name="Changes" comment="Updating most views. Adding user groups and permission handling. Adding tests. Adding user management system.">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/common/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_halls/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_halls/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_halls/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_halls/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_halls/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam_session/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/exam_session/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exams/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exams/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/exams/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/faculties/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/faculties/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/faculties/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/faculties/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/faculties/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/faculties/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/majors/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/majors/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/majors/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/majors/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/majors/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/common/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/common/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exam_halls/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exam_halls/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exam_halls/delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exam_halls/delete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exam_halls/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exam_halls/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exam_halls/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exam_halls/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exam_halls/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exam_halls/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exams/create_wizard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exams/create_wizard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exams/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exams/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exams/edit_wizard.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exams/edit_wizard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/exams/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/exams/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/faculties/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/faculties/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/majors/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/majors/create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/majors/delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/majors/delete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/majors/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/majors/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/majors/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/majors/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/majors/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/majors/list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -350,7 +281,7 @@
       <workItem from="1775295381899" duration="8581000" />
       <workItem from="1775330290758" duration="7445000" />
       <workItem from="1775382131184" duration="6383000" />
-      <workItem from="1775537711339" duration="24889000" />
+      <workItem from="1775537711339" duration="25250000" />
     </task>
     <task id="LOCAL-00001" summary="Changes in base structure and base look for the app">
       <option name="closed" value="true" />
@@ -416,7 +347,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775307487450</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Updating most views. Adding user groups and permission handling. Adding tests. Adding user management system.">
+      <option name="closed" value="true" />
+      <created>1775565577275</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1775565577275</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,7 +378,8 @@
     <MESSAGE value="Handling secret data" />
     <MESSAGE value="Fixing migrations" />
     <MESSAGE value="Adding accounts and faculties." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding accounts and faculties." />
+    <MESSAGE value="Updating most views. Adding user groups and permission handling. Adding tests. Adding user management system." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updating most views. Adding user groups and permission handling. Adding tests. Adding user management system." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/exam_session$Test__tests_exam_halls_test_forms_ExamHallFormTests.coverage" NAME="Test: tests.exam_halls.test_forms.ExamHallFormTests Coverage Results" MODIFIED="1775564577614" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

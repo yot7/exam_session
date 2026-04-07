@@ -133,6 +133,7 @@ python manage.py test
 
 ## Notes
 
+* Link to the deployed project: exam-session-fnf4evc2csgce3d6.francecentral-01.azurewebsites.net
 * The project uses a custom user model.
 * Project depends on superuser to manage user groups.
 * Some views require authentication and/or permissions.
