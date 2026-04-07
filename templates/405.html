@@ -1,0 +1,16 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Method Not Allowed{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold">405</h1>
+        <p class="fs-3"><span class="text-danger">Oops!</span> Method not allowed.</p>
+        <p class="lead">
+            The request method is not allowed for this page.
+        </p>
+        <a href="{% url 'common:home' %}" class="btn btn-primary">Go Home</a>
+    </div>
+</div>
+{% endblock %}

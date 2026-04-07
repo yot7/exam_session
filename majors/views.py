@@ -1,86 +1,104 @@
-from django.db.models import Count, Q
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.db.models import Count
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic.edit import FormMixin
 
-from majors.forms import MajorCreateForm, MajorEditForm, MajorDeleteForm, MajorSearchFrom
+from majors.forms import MajorForm, MajorDeleteForm, MajorSearchFrom
 from majors.models import Major
 
 
 # Create your views here.
-def majors_list(request: HttpRequest) -> HttpResponse:
-    search_form = MajorSearchFrom(request.GET or None)
+class MajorListView(FormMixin, ListView):
+    model = Major
+    context_object_name = 'list_majors'
+    template_name = 'majors/list.html'
+    form_class = MajorSearchFrom
 
-    list_majors = Major.objects.annotate(
-        total_exams=Count('exams')
-    )
+    def get_queryset(self):
+        queryset = super().get_queryset().annotate(total_exams=Count('exams')).select_related('faculty')
+        
+        form = self.get_form()
+        
+        if form.is_valid() and form.cleaned_data.get('query'):
+            queryset = queryset.filter(name__icontains=form.cleaned_data['query'])
+            
+        return queryset
+        
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['data'] = self.request.GET
+        return kwargs
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    if 'query' in request.GET:
-        if search_form.is_valid():
-            list_majors = list_majors.filter(
-                Q(name__icontains=search_form.cleaned_data['query'])
-            )
+        context['search_form'] = self.get_form()
+        context['page_title'] = 'Majors'
 
-    context = {
-        'list_majors': list_majors,
-        'page_title': 'Majors',
-        'search_form': search_form
-    }
+        user = self.request.user
+        if user.is_authenticated:
+            user_majors = user.majors.all()
+            context['user_majors'] = user_majors
 
-    return render(request, 'majors/list.html', context)
+            context['list_majors'] = context['list_majors'].exclude(id__in=user_majors.values_list('id', flat=True))
 
-def major_details(request: HttpRequest, slug: str) -> HttpResponse:
-    searched_major = get_object_or_404(
-        Major.objects.prefetch_related('exams'),
-        slug=slug,
-    )
+        return context
 
-    context = {
-        'searched_major': searched_major,
-        'page_title': f'{searched_major.name} Details'
-    }
 
-    return render(request, 'majors/details.html', context)
+class MajorDetailView(DetailView):
+    model = Major
 
-def major_create(request: HttpRequest) -> HttpResponse:
-    form = MajorCreateForm(request.POST or None)
+    http_method_names = ['get']
+    template_name = 'majors/details.html'
 
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect('majors:list')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['page_title'] = f'{self.object.name} Details'
+        return context
 
-    context = {
-        'form': form,
-        'page_title': 'Create Major'
-    }
 
-    return render(request, 'majors/create.html', context)
+class MajorCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model = Major
+    form_class = MajorForm
+    template_name = 'majors/create.html'
+    success_url = reverse_lazy('majors:list')
+    permission_required = ['majors.add_major']
 
-def major_edit(request: HttpRequest, pk: int) -> HttpResponse:
-    searched_major = get_object_or_404(Major, pk=pk)
-    form = MajorEditForm(request.POST or None, instance=searched_major)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Create Major'
+        return context
 
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect('majors:list')
 
-    context = {
-        'form': form,
-        'page_title': f'Edit {searched_major.name}'
-    }
+class MajorUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Major
+    form_class = MajorForm
+    template_name = 'majors/edit.html'
+    success_url = reverse_lazy('majors:list')
+    permission_required = ['majors.change_major']
 
-    return render(request, 'majors/edit.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = f'Edit {self.object.name}'
+        return context
 
-def major_delete(request: HttpRequest, pk: int) -> HttpResponse:
-    searched_major = get_object_or_404(Major, pk=pk)
-    form = MajorDeleteForm(request.POST or None, instance=searched_major)
 
-    if request.method == 'POST' and form.is_valid():
-        searched_major.delete()
-        return redirect('majors:list')
+class MajorDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Major
+    form_class = MajorDeleteForm
+    template_name = 'majors/delete.html'
+    success_url = reverse_lazy('majors:list')
+    permission_required = ['majors.delete_major']
 
-    context = {
-        'form': form,
-        'page_title': f'Delete {searched_major.name}'
-    }
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+        return kwargs
 
-    return render(request, 'majors/delete.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = f'Delete {self.object.name}'
+        if 'form' not in context:
+            context['form'] = self.get_form()
+        return context

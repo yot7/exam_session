@@ -43,7 +43,7 @@
                     {% endfor %}
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a onClick="history.go(-1);" class="btn btn-secondary me-md-2">Cancel</a>
+                        <a href="{% url 'exam_halls:list' %}" class="btn btn-secondary me-md-2">Cancel</a>
                         <button type="submit" class="btn btn-warning">Save Changes</button>
                     </div>
                 </form>

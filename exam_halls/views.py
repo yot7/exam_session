@@ -1,84 +1,99 @@
+from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic.edit import FormMixin
 
 from exam_halls.forms import ExamHallCreateForm, ExamHallEditForm, ExamHallDeleteForm, ExamHallSearchFrom
 from exam_halls.models import ExamHall
 
 
 # Create your views here.
-def exam_halls_list(request: HttpRequest) -> HttpResponse:
-    search_form = ExamHallSearchFrom(request.GET or None)
+class ExamHallListView(LoginRequiredMixin, PermissionRequiredMixin, FormMixin, ListView):
+    model = ExamHall
+    context_object_name = 'list_exam_halls'
+    template_name = 'exam_halls/list.html'
+    form_class = ExamHallSearchFrom
+    permission_required = ['exam_halls.view_examhall']
 
-    list_exam_halls = ExamHall.objects.all()
+    def get_queryset(self):
+        queryset = super().get_queryset()
 
-    if 'query' in request.GET:
-        if search_form.is_valid():
-            if search_form.cleaned_data['is_computer_room']:
-                list_exam_halls = list_exam_halls.filter(is_computer_room=True)
+        form = self.get_form()
 
-            list_exam_halls = list_exam_halls.filter(
-                Q(name__icontains=search_form.cleaned_data['query'])
-                &
-                Q(capacity__gte=search_form.cleaned_data['min_capacity'])
-            )
+        if form.is_valid():
+            if form.cleaned_data['is_computer_room']:
+                queryset = queryset.filter(is_computer_room=True)
 
-    context = {
-        'list_exam_halls': list_exam_halls,
-        'page_title': 'Exam Halls',
-        'search_form': search_form
-    }
+            if form.cleaned_data.get('query'):
+                queryset = queryset.filter(
+                    Q(name__icontains=form.cleaned_data['query'])
+                )
 
-    return render(request, 'exam_halls/list.html', context)
+            if form.cleaned_data.get('min_capacity'):
+                queryset = queryset.filter(
+                    Q(capacity__gte=form.cleaned_data['min_capacity'])
+                )
 
-def exam_hall_details(request: HttpRequest, pk: int) -> HttpResponse:
-    searched_exam_hall = get_object_or_404(
-        ExamHall.objects.prefetch_related('hosted_exams'),
-        pk=pk,
-    )
+        return queryset
 
-    context = {
-        'searched_exam_hall': searched_exam_hall,
-        'page_title': f'{searched_exam_hall.name} Details'
-    }
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['data'] = self.request.GET
+        return kwargs
 
-    return render(request, 'exam_halls/details.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-def exam_hall_create(request: HttpRequest) -> HttpResponse:
-    form = ExamHallCreateForm(request.POST or None)
-
-    if request.method == 'POST' and form.is_valid():
-        form.save()
-        return redirect('exam_halls:list')
-
-    context = {
-        'form': form,
-        'page_title': 'Create ExamHall'
-    }
-
-    return render(request, 'exam_halls/create.html', context)
-
-def exam_hall_edit(request: HttpRequest, pk: int) -> HttpResponse:
-    searched_exam_hall = get_object_or_404(ExamHall, pk=pk)
-    form = ExamHallEditForm(request.POST or None, instance=searched_exam_hall)
-
-    if request.method == 'POST' and form.is_valid():
-        if searched_exam_hall.hosted_exams.exists():
-            original_hall = ExamHall.objects.get(pk=pk)
-            form.instance.capacity = original_hall.capacity
-            form.instance.is_computer_room = original_hall.is_computer_room
-
-        form.save()
-        return redirect('exam_halls:list')
-
-    context = {
-        'form': form,
-        'page_title': f'Edit {searched_exam_hall.name}'
-    }
-
-    return render(request, 'exam_halls/edit.html', context)
+        context['search_form'] = self.get_form()
+        context['page_title'] = 'Exam Halls'
+        return context
 
 
+class ExamHallDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model = ExamHall
+
+    http_method_names = ['get']
+    template_name = 'exam_halls/details.html'
+    permission_required = ['exam_halls.view_examhall']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['page_title'] = f'{self.object.name} Details'
+        return context
+
+
+class ExamHallCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model = ExamHall
+    form_class = ExamHallCreateForm
+    template_name = 'exam_halls/create.html'
+    success_url = reverse_lazy('exam_halls:list')
+    permission_required = ['exam_halls.add_examhall']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Create Exam Hall'
+        return context
+
+
+class ExamHallUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = ExamHall
+    form_class = ExamHallEditForm
+    template_name = 'exam_halls/edit.html'
+    success_url = reverse_lazy('exam_halls:list')
+    permission_required = ['exam_halls.change_examhall']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = f'Edit {self.object.name}'
+        return context
+
+
+@login_required
+@permission_required('exam_halls.delete_examhall')
 def exam_hall_delete_error(request: HttpRequest) -> HttpResponse:
     context = {
         'page_title': 'Delete Error'
@@ -86,6 +101,8 @@ def exam_hall_delete_error(request: HttpRequest) -> HttpResponse:
     return render(request, 'exam_halls/delete_error.html', context)
 
 
+@login_required
+@permission_required('exam_halls.delete_examhall')
 def exam_hall_delete(request: HttpRequest, pk: int) -> HttpResponse:
     searched_exam_hall = get_object_or_404(ExamHall, pk=pk)
     form = ExamHallDeleteForm(request.POST or None, instance=searched_exam_hall)

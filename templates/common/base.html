@@ -30,12 +30,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'majors:list' %}">Majors</a>
                         </li>
+                        {% if perms.exams.view_exam %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'exams:list' %}">Exams</a>
                         </li>
+                        {% endif %}
+                        {% if perms.exam_halls.view_examhall %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'exam_halls:list' %}">Exam Halls</a>
                         </li>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" href="{% url 'api-users-list' %}" target="_blank">Manage Users (API)</a>
+                        </li>
+                        {% endif %}
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         {% if user.is_authenticated %}
@@ -69,7 +78,9 @@
 
     <footer class="bg-dark text-white text-center py-3 mt-auto">
         <div class="container">
-            <p class="mb-0">&copy; 2026 Exam Session Application. All rights reserved.</p>
+            <span class="mb-0">&copy; 2026 Exam Session Application.</span>
+            <span class="mb-0">|</span>
+            <a href="{% url 'common:dashboard' %}" class="text-decoration-none">About Us</a>
         </div>
     </footer>
 

@@ -1,15 +1,15 @@
 from django.urls import path, include
-from majors.views import majors_list, major_details, major_create, major_edit, major_delete
+from majors.views import MajorListView, MajorDetailView, MajorCreateView, MajorUpdateView, MajorDeleteView
 
 app_name = 'majors'
 
 majors_patterns = [
-    path('edit/', major_edit, name='edit'),
-    path('delete/', major_delete, name='delete'),
+    path('', MajorDetailView.as_view(), name='details'),
+    path('edit/', MajorUpdateView.as_view(), name='edit'),
+    path('delete/', MajorDeleteView.as_view(), name='delete'),
 ]
 urlpatterns = [
-    path('', majors_list, name='list'),
-    path('create/', major_create, name='create'),
-    path('<int:pk>/', include(majors_patterns)),
-    path('<slug:slug>/', major_details, name='details'),
+    path('', MajorListView.as_view(), name='list'),
+    path('create/', MajorCreateView.as_view(), name='create'),
+    path('<slug:slug>/', include(majors_patterns)),
 ]

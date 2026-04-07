@@ -21,6 +21,7 @@ class ExamHall(TimeStampModel):
 
     class Meta:
         ordering = ['name']
+        unique_together = ['name', 'faculty']
 
     def __str__(self):
         return f'{self.name}' + f' computer room' * self.is_computer_room

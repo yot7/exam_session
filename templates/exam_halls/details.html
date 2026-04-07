@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row mb-4">
     <div class="col-12">
-        <h1 class="display-4">{{ searched_exam_hall.name }}</h1>
+        <h1 class="display-4">{{ examhall.name }}</h1>
         <p class="lead">Details and hosted exams for this hall.</p>
         <a href="{% url 'exam_halls:list' %}" class="btn btn-secondary">Back to Halls List</a>
     </div>
@@ -18,12 +18,16 @@
                 Hall Information
             </div>
             <div class="card-body">
-                <p><strong>Name:</strong> {{ searched_exam_hall.name }}</p>
-                <p><strong>Capacity:</strong> {{ searched_exam_hall.capacity }}</p>
-                <p><strong>Computer Room:</strong> {{ searched_exam_hall.is_computer_room|yesno:"Yes,No" }}</p>
-                <p><strong>Created At:</strong> {{ searched_exam_hall.created_at|date:"F j, Y" }}</p>
-                <a href="{% url 'exam_halls:edit' searched_exam_hall.pk %}" class="btn btn-warning">Edit</a>
-                <a href="{% url 'exam_halls:delete' searched_exam_hall.pk %}" class="btn btn-danger">Delete</a>
+                <p><strong>Name:</strong> {{ examhall.name }}</p>
+                <p><strong>Capacity:</strong> {{ examhall.capacity }}</p>
+                <p><strong>Computer Room:</strong> {{ examhall.is_computer_room|yesno:"Yes,No" }}</p>
+                <p><strong>Created At:</strong> {{ examhall.created_at|date:"F j, Y" }}</p>
+                {% if perms.exam_halls.change_examhall %}
+                <a href="{% url 'exam_halls:edit' examhall.pk %}" class="btn btn-warning">Edit</a>
+                {% endif %}
+                {% if perms.exam_halls.delete_examhall %}
+                <a href="{% url 'exam_halls:delete' examhall.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -32,9 +36,9 @@
 <div class="row">
     <div class="col-12">
         <h3>Hosted Exams</h3>
-        {% if searched_exam_hall.hosted_exams.all %}
+        {% if examhall.hosted_exams.all %}
             <div class="row">
-                {% for exam in searched_exam_hall.hosted_exams.all %}
+                {% for exam in examhall.hosted_exams.all %}
                 <div class="col-md-4 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
@@ -44,7 +48,9 @@
                                 <strong>Time:</strong> {{ exam.start_time|time:"g:i a" }} - {{ exam.end_time|time:"g:i a" }}<br>
                                 <strong>Examinees:</strong> {{ exam.number_of_examinees }}
                             </p>
+                            {% if perms.exams.view_exam %}
                             <a href="{% url 'exams:details' exam.pk %}" class="btn btn-primary">View Exam Details</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

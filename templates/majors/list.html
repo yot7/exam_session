@@ -17,25 +17,33 @@
             <button class="btn btn-outline-success ms-2" type="submit">Search</button>
         </form>
     </div>
+    {% if perms.majors.add_major %}
     <div class="col-md-4 text-end">
         <a href="{% url 'majors:create' %}" class="btn btn-success">Create New Major</a>
     </div>
+    {% endif %}
 </div>
 
-<div class="row">
-    {% if list_majors %}
-        {% for major in list_majors %}
+{% if user.is_authenticated and user_majors %}
+    <h2 class="mb-3">Your Majors</h2>
+    <div class="row mb-5">
+        {% for major in user_majors %}
         <div class="col-md-4 mb-4">
-            <div class="card h-100">
+            <div class="card h-100 border-primary">
                 <div class="card-body">
-                    <h5 class="card-title">{{ major.name }}</h5>
+                    <h5 class="card-title text-primary">{{ major.name }}</h5>
                     <p class="card-text">
-                        <strong>Total Exams:</strong> {{ major.total_exams }}
+                        <strong>Faculty:</strong> <a href="{% url 'faculties:details' major.faculty.slug %}">{{ major.faculty.name }}</a><br>
+                        <strong>Total Exams:</strong> {{ major.exams.count }}
                     </p>
                     <div class="d-grid gap-2">
                         <a href="{% url 'majors:details' major.slug %}" class="btn btn-primary">View Details</a>
-                        <a href="{% url 'majors:edit' major.pk %}" class="btn btn-warning">Edit</a>
-                        <a href="{% url 'majors:delete' major.pk %}" class="btn btn-danger">Delete</a>
+                        {% if perms.majors.change_major %}
+                        <a href="{% url 'majors:edit' major.slug %}" class="btn btn-warning">Edit</a>
+                        {% endif %}
+                        {% if perms.majors.delete_major %}
+                        <a href="{% url 'majors:delete' major.slug %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="card-footer text-muted">
@@ -44,12 +52,91 @@
             </div>
         </div>
         {% endfor %}
-    {% else %}
-        <div class="col-12">
-            <div class="alert alert-info" role="alert">
-                No majors found.
+    </div>
+
+    <div class="accordion mb-4" id="allMajorsAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingAllMajors">
+          <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllMajors" aria-expanded="false" aria-controls="collapseAllMajors">
+            All Other Majors
+          </button>
+        </h2>
+        <div id="collapseAllMajors" class="accordion-collapse collapse" aria-labelledby="headingAllMajors" data-bs-parent="#allMajorsAccordion">
+          <div class="accordion-body">
+            <div class="row pt-3">
+                {% if list_majors %}
+                    {% for major in list_majors %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ major.name }}</h5>
+                                <p class="card-text">
+                                    <strong>Faculty:</strong> <a href="{% url 'faculties:details' major.faculty.slug %}">{{ major.faculty.name }}</a><br>
+                                    <strong>Total Exams:</strong> {{ major.total_exams }}
+                                </p>
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'majors:details' major.slug %}" class="btn btn-primary">View Details</a>
+                                    {% if perms.majors.change_major %}
+                                    <a href="{% url 'majors:edit' major.slug %}" class="btn btn-warning">Edit</a>
+                                    {% endif %}
+                                    {% if perms.majors.delete_major %}
+                                    <a href="{% url 'majors:delete' major.slug %}" class="btn btn-danger">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Created: {{ major.created_at|date:"M d, Y" }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12">
+                        <div class="alert alert-info" role="alert">
+                            No other majors found.
+                        </div>
+                    </div>
+                {% endif %}
             </div>
+          </div>
         </div>
-    {% endif %}
-</div>
+      </div>
+    </div>
+{% else %}
+    <div class="row">
+        {% if list_majors %}
+            {% for major in list_majors %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ major.name }}</h5>
+                        <p class="card-text">
+                            <strong>Faculty:</strong> <a href="{% url 'faculties:details' major.faculty.slug %}">{{ major.faculty.name }}</a><br>
+                            <strong>Total Exams:</strong> {{ major.total_exams }}
+                        </p>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'majors:details' major.slug %}" class="btn btn-primary">View Details</a>
+                            {% if perms.majors.change_major %}
+                            <a href="{% url 'majors:edit' major.slug %}" class="btn btn-warning">Edit</a>
+                            {% endif %}
+                            {% if perms.majors.delete_major %}
+                            <a href="{% url 'majors:delete' major.slug %}" class="btn btn-danger">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Created: {{ major.created_at|date:"M d, Y" }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    No majors found.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
 {% endblock %}

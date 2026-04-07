@@ -4,22 +4,16 @@ from common.mixins import DisableFormFieldsMixin
 from majors.models import Major
 
 
-class MajorFormBasic(forms.ModelForm):
+class MajorForm(forms.ModelForm):
     class Meta:
-        exclude = ['slug']
         model = Major
+        exclude = ['slug']
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'e. g. Computer Science'}),
-            'description': forms.Textarea,
+            'description': forms.Textarea(attrs={'placeholder': 'Optional description'}),
         }
 
-class MajorCreateForm(MajorFormBasic):
-    ...
-
-class MajorEditForm(MajorFormBasic):
-    ...
-
-class MajorDeleteForm(DisableFormFieldsMixin, MajorFormBasic):
+class MajorDeleteForm(DisableFormFieldsMixin, MajorForm):
     ...
 
 class MajorSearchFrom(forms.Form):

@@ -31,9 +31,11 @@
             </div>
         </form>
     </div>
+    {% if perms.exam_halls.add_examhall %}
     <div class="col-md-4 text-end">
         <a href="{% url 'exam_halls:create' %}" class="btn btn-success">Create New Exam Hall</a>
     </div>
+    {% endif %}
 </div>
 
 
@@ -50,8 +52,12 @@
                     </p>
                     <div class="d-grid gap-2">
                         <a href="{% url 'exam_halls:details' hall.pk %}" class="btn btn-primary">View Details</a>
+                        {% if perms.exam_halls.change_examhall %}
                         <a href="{% url 'exam_halls:edit' hall.pk %}" class="btn btn-warning">Edit</a>
+                        {% endif %}
+                        {% if perms.exam_halls.delete_examhall %}
                         <a href="{% url 'exam_halls:delete' hall.pk %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="card-footer text-muted">

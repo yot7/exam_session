@@ -52,6 +52,7 @@
                     {% endfor %}
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="{% url 'exams:list' %}" class="btn btn-secondary me-md-2">Cancel</a>
                         {% if wizard.steps.prev %}
                             <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-secondary me-md-2">Back</button>
                         {% endif %}

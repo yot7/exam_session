@@ -5,7 +5,7 @@
 {% block content %}
 <div class="row mb-4">
     <div class="col-12">
-        <h1 class="display-4">{{ searched_major.name }}</h1>
+        <h1 class="display-4">{{ major.name }}</h1>
         <p class="lead">Details and available exams for this major.</p>
         <a href="{% url 'majors:list' %}" class="btn btn-secondary">Back to Majors List</a>
     </div>
@@ -18,22 +18,28 @@
                 Major Information
             </div>
             <div class="card-body">
-                <p><strong>Name:</strong> {{ searched_major.name }}</p>
-                <p><strong>Created At:</strong> {{ searched_major.created_at|date:"F j, Y" }}</p>
-                <p><strong>Last Updated:</strong> {{ searched_major.updated_at|date:"F j, Y" }}</p>
-                <a href="{% url 'majors:edit' searched_major.pk %}" class="btn btn-warning">Edit</a>
-                <a href="{% url 'majors:delete' searched_major.pk %}" class="btn btn-danger">Delete</a>
+                <p><strong>Name:</strong> {{ major.name }}</p>
+                <p><strong>Faculty:</strong> <a href="{% url 'faculties:details' major.faculty.slug %}">{{ major.faculty.name }}</a></p>
+                <p><strong>Created At:</strong> {{ major.created_at|date:"F j, Y" }}</p>
+                <p><strong>Last Updated:</strong> {{ major.updated_at|date:"F j, Y" }}</p>
+                {% if perms.majors.change_major %}
+                <a href="{% url 'majors:edit' major.slug %}" class="btn btn-warning">Edit</a>
+                {% endif %}
+                {% if perms.majors.delete_major %}
+                <a href="{% url 'majors:delete' major.slug %}" class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
+{% if user.is_authenticated and perms.exams.view_exam %}
 <div class="row">
     <div class="col-12">
         <h3>Available Exams</h3>
-        {% if searched_major.exams.all %}
+        {% if major.exams.all %}
             <div class="row">
-                {% for exam in searched_major.exams.all %}
+                {% for exam in major.exams.all %}
                 <div class="col-md-6 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
@@ -57,4 +63,5 @@
         {% endif %}
     </div>
 </div>
+{% endif %}
 {% endblock %}

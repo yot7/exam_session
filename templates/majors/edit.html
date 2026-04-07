@@ -7,7 +7,7 @@
     <div class="col-md-8 col-lg-6">
         <div class="card shadow-sm">
             <div class="card-header bg-warning text-dark">
-                <h3 class="mb-0">Edit Major: {{ form.instance.name }}</h3>
+                <h3 class="mb-0">Edit Major: {{ object.name }}</h3>
             </div>
             <div class="card-body">
                 <form method="post">
@@ -39,7 +39,7 @@
                     {% endfor %}
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a onClick="history.go(-1);" class="btn btn-secondary me-md-2">Cancel</a>
+                        <a href="{% url 'majors:details' object.slug %}" class="btn btn-secondary me-md-2">Cancel</a>
                         <button type="submit" class="btn btn-warning">Save Changes</button>
                     </div>
                 </form>

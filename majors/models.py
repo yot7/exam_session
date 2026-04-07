@@ -29,7 +29,13 @@ class Major(TimeStampModel):
 
     def save(self, *args, **kwargs) -> None:
         if not self.slug:
-            self.slug = slugify(f"{self.name}")
+            base_slug = slugify(f"{self.name}")
+            slug = base_slug
+            counter = 1
+            while Major.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
 
         super().save(*args, **kwargs)
 

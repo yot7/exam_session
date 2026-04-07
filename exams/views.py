@@ -1,6 +1,7 @@
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import FormView, ListView
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views.generic import FormView, ListView, DetailView, DeleteView
 from formtools.wizard.views import SessionWizardView
 
 from exams.forms import ExamSearchForm, PrepExamFormCreate, ExamFormCreate, PrepExamFormEdit, ExamFormEdit, \
@@ -9,11 +10,12 @@ from exams.models import Exam
 
 
 # Create your views here.
-class ExamListView(ListView, FormView):
+class ExamListView(LoginRequiredMixin, PermissionRequiredMixin, ListView, FormView):
     model = Exam
     context_object_name = 'list_exams'
     template_name = 'exams/list.html'
     form_class = ExamSearchForm
+    permission_required = ['exams.view_exam']
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -26,24 +28,38 @@ class ExamListView(ListView, FormView):
 
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        
+        if user.is_authenticated:
+            user_majors = user.majors.all()
+            user_exams = Exam.objects.filter(major__in=user_majors).distinct()
+            context['user_exams'] = user_exams
 
-def exam_details(request: HttpRequest, pk: int) -> HttpResponse:
-    searched_exam = get_object_or_404(
-        Exam.objects.prefetch_related('exam_halls'),
-        pk=pk,
-    )
-
-    context = {
-        'searched_exam': searched_exam,
-        'page_title': f'{searched_exam.subject} - {searched_exam.major.name if searched_exam.major else "Major N/A"} Details'
-    }
-
-    return render(request, 'exams/details.html', context)
+            context['list_exams'] = context['list_exams'].exclude(id__in=user_exams.values_list('id', flat=True))
+            
+        return context
 
 
-class ExamCreateWizard(SessionWizardView):
+
+class ExamDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model = Exam
+
+    http_method_names = ['get']
+    template_name = 'exams/details.html'
+    permission_required = ['exams.view_exam']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['page_title'] = f'{self.object.subject} - {self.object.major.name if self.object.major else "Major N/A"} Details'
+        return context
+
+
+class ExamCreateWizard(LoginRequiredMixin, PermissionRequiredMixin, SessionWizardView):
     form_list = [PrepExamFormCreate, ExamFormCreate]
     template_name = 'exams/create_wizard.html'
+    permission_required = ['exams.add_exam']
 
     def get_form_kwargs(self, step=None):
         kwargs = super().get_form_kwargs(step)
@@ -72,9 +88,11 @@ class ExamCreateWizard(SessionWizardView):
 
         return redirect('exams:list')
 
-class ExamEditWizard(SessionWizardView):
+class ExamEditWizard(LoginRequiredMixin, PermissionRequiredMixin, SessionWizardView):
     form_list = [PrepExamFormEdit, ExamFormEdit]
     template_name = 'exams/edit_wizard.html'
+    permission_required = ['exams.change_exam']
+
 
     def get_form_initial(self, step):
         pk = self.kwargs['pk']
@@ -128,18 +146,21 @@ class ExamEditWizard(SessionWizardView):
         return redirect('exams:details', pk)
 
 
-def exam_delete(request: HttpRequest, pk: int):
-    searched_exam = get_object_or_404(Exam, pk=pk)
-    form = ExamDeleteForm(request.POST or None, instance=searched_exam)
+class ExamDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Exam
+    form_class = ExamDeleteForm
+    template_name = 'exams/delete.html'
+    success_url = reverse_lazy('exams:list')
+    permission_required = ['exams.delete_exam']
 
-    if request.method == 'POST' and form.is_valid():
-        searched_exam.exam_halls.clear()
-        searched_exam.delete()
-        return redirect('exams:list')
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.object
+        return kwargs
 
-    context = {
-        'form': form,
-        'page_title': f'Delete {searched_exam.subject} - {searched_exam.major.name}'
-    }
-
-    return render(request, 'exams/delete.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = f'Delete {self.object.subject} - {self.object.major.name}'
+        if 'form' not in context:
+            context['form'] = self.get_form()
+        return context

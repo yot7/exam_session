@@ -1,0 +1,129 @@
+{% extends 'common/base.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+        <div class="card mt-4 shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0 text-center">{{ faculty.name }} Details</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="row mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">Name:</div>
+                    <div class="col-sm-8">{{ faculty.name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">Location:</div>
+                    <div class="col-sm-8">{{ faculty.location }}</div>
+                </div>
+                {% if faculty.description %}
+                <div class="row mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">Description:</div>
+                    <div class="col-sm-8">{{ faculty.description }}</div>
+                </div>
+                {% endif %}
+
+                <!-- Display related majors if available -->
+                {% if faculty.majors.all %}
+                <div class="row mb-3">
+                    <div class="col-sm-4 fw-bold text-muted">Associated Majors:</div>
+                    <div class="col-sm-8">
+                        <ul class="list-group list-group-flush">
+                            {% for major in faculty.majors.all %}
+                                <li class="list-group-item bg-transparent px-0 py-1">{{ major.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+
+                <hr class="my-4">
+
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <h2 class="display-6">Faculty Statistics</h2>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Majors in {{ faculty.name }}</h5>
+                                <p class="card-text display-6">{{ total_majors }}</p>
+                                <a href="{% url 'majors:list' %}" class="btn btn-primary">View Majors</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Exam Halls in {{ faculty.name }}</h5>
+                                <p class="card-text display-6">{{ total_exam_halls }}</p>
+                                {% if perms.exam_halls.view_examhall %}
+                                <a href="{% url 'exam_halls:list' %}" class="btn btn-primary">View Exam Halls</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                Last Added Major in {{ faculty.name }}
+                            </div>
+                            <div class="card-body">
+                                {% if last_added_major %}
+                                    <h5 class="card-title">{{ last_added_major.name }}</h5>
+                                    <p class="card-text">Created: {{ last_added_major.created_at|date:"F j, Y" }}</p>
+                                    <a href="{% url 'majors:details' last_added_major.slug %}" class="btn btn-primary">View Details</a>
+                                {% else %}
+                                    <p class="card-text">No majors added yet for this faculty.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                Last Added Exam in {{ faculty.name }}
+                            </div>
+                            <div class="card-body">
+                                {% if last_added_exam %}
+                                    <h5 class="card-title">{{ last_added_exam.subject }}</h5>
+                                    <p class="card-text">
+                                        <strong>Date:</strong> {{ last_added_exam.date|date:"F j, Y" }}<br>
+                                        <strong>Time:</strong> {{ last_added_exam.start_time|time:"g:i a" }} - {{ last_added_exam.end_time|time:"g:i a" }}
+                                    </p>
+                                    {% if perms.exams.view_exam %}
+                                    <a href="{% url 'exams:details' last_added_exam.pk %}" class="btn btn-primary">View Details</a>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="card-text">No exams added yet for this faculty.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-5">
+                    <a href="{% url 'faculties:list' %}" class="btn btn-outline-secondary">Back to Faculties</a>
+                    <div>
+                        {% if perms.faculties.change_faculty %}
+                        <a href="{% url 'faculties:edit' faculty.slug %}" class="btn btn-warning me-2">Edit</a>
+                        {% endif %}
+                        {% if perms.faculties.delete_faculty %}
+                        <a href="{% url 'faculties:delete' faculty.slug %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

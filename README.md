@@ -1,39 +1,63 @@
 # Exam Session Management System
 
-A simple Django-based web application for managing university exam sessions, including majors, exams, and exam halls.
+A Django-based web application for managing university exam sessions, including users, majors, faculties, exams, and exam halls.
 
 ## Features
 
-*   **Majors Management**: Create, read, update, and delete (CRUD) majors. View details and associated exams.
-*   **Exam Halls Management**: Manage exam halls with capacity and computer availability. Includes validation to prevent deletion or modification of halls that are currently hosting exams.
-*   **Exam Scheduling**:
-    *   **Wizard-based Creation**: A 2-step wizard for scheduling exams.
-        *   Step 1: Define exam details (subject, major, date, time, examinees, computer needs).
-        *   Step 2: Select available exam halls based on capacity and availability.
-    *   **Conflict Detection**: Automatically filters out exam halls that are already booked for the selected time slot.
-    *   **Validation**: Ensures exams are scheduled within valid hours (8:00 - 20:00), have sufficient duration, and do not exceed hall capacities.
-    *   **Unique Constraints**: Prevents duplicate exams for the same subject and major.
-*   **Search Functionality**: Search for exams by subject and date. Search for exam halls by name and computer availability.
-*   **Responsive Design**: Built with Bootstrap 5 for a mobile-friendly interface.
+* **Authentication and User Accounts**
+  * User registration, login, logout, and profile page
+  * Custom user model
+  * Admin/user role separation
+  * API access for user management
 
----
+* **Faculties and Majors Management**
+  * Create, read, update, and delete faculties and majors
+  * Detail pages with related data
+  * Automatic slug generation
+  * Search and filtering support for majors
+
+* **Exam Halls Management**
+  * Manage exam halls with capacity and computer-room flags
+  * Validation for hall capacity
+  * Prevent duplicate hall names within the same faculty
+  * Custom delete/edit handling for halls with related exams
+
+* **Exam Scheduling**
+  * 2-step wizard-based exam creation and editing
+  * Step 1: define exam details
+  * Step 2: select available exam halls
+  * Automatic filtering of halls by date, time, capacity, and computer-room requirement
+  * Validation for exam duration and duplicate exams
+  * Search by subject and date
+
+* **Shared Pages**
+  * Home page
+  * Dashboard/about page with summary statistics
+  * Custom error pages for `400`, `403`, `404`, `405`, and `500`
+
+* **Responsive Design**
+  * Built with Bootstrap 5 for a mobile-friendly interface
+
+## Project Structure
+
+* `accounts`: Authentication, profile, custom user model, and API user management
+* `common`: Base templates, home page, dashboard, and shared utilities
+* `faculties`: Faculty models, forms, views, and CRUD operations
+* `majors`: Major models, forms, views, and CRUD operations
+* `exam_halls`: Exam hall models, forms, views, and CRUD operations
+* `exams`: Core scheduling logic, validation forms, and wizard views
+* `templates`: Shared templates and custom error pages
+* `tests`: Automated tests for the application
 
 ## Database Structure
 
 | Table Name | Fields | Relations |
 | :--- | :--- | :--- |
-| **Major** | `id` (PK)<br>`name`<br>`slug`<br>`created_at`<br>`updated_at` | **One-to-Many** with `Exam` (via `exam` related name) |
-| **ExamHall** | `id` (PK)<br>`name`<br>`capacity`<br>`is_computer_room`<br>`created_at`<br>`updated_at` | **Many-to-Many** with `Exam` (via `hosted_exams` related name) |
-| **Exam** | `id` (PK)<br>`subject`<br>`major_id` (FK)<br>`needs_computers`<br>`number_of_examinees`<br>`date`<br>`start_time`<br>`end_time`<br>`created_at`<br>`updated_at` | **ForeignKey** to `Major` (field: `major`)<br>**ManyToManyField** to `ExamHall` (field: `exam_halls`) |
-
----
-
-## Project Structure
-
-*   `common`: Base templates, home page, and shared utilities.
-*   `majors`: Models and views for handling academic majors.
-*   `exam_halls`: Models and views for managing physical exam locations.
-*   `exams`: Core logic for exam scheduling, including the creation wizard and validation forms.
+| **ExamSessionUser** | `id` (PK)<br>`email`<br>`username`<br>`first_name`<br>`last_name`<br>`academic_rank`<br>`is_active`<br>`is_staff` | **Many-to-Many** with `Major` |
+| **Faculty** | `id` (PK)<br>`name`<br>`description`<br>`location`<br>`slug`<br>`created_at`<br>`updated_at` | **One-to-Many** with `Major` |
+| **Major** | `id` (PK)<br>`name`<br>`description`<br>`slug`<br>`faculty_id`<br>`created_at`<br>`updated_at` | **ForeignKey** to `Faculty`<br>**One-to-Many** with `Exam` |
+| **ExamHall** | `id` (PK)<br>`name`<br>`capacity`<br>`is_computer_room`<br>`faculty_id`<br>`created_at`<br>`updated_at` | **Many-to-Many** with `Exam` |
+| **Exam** | `id` (PK)<br>`subject`<br>`major_id`<br>`needs_computers`<br>`number_of_examinees`<br>`date`<br>`start_time`<br>`end_time`<br>`created_at`<br>`updated_at` | **ForeignKey** to `Major`<br>**Many-to-Many** with `ExamHall` |
 
 ---
 
@@ -50,9 +74,17 @@ A simple Django-based web application for managing university exam sessions, inc
     pip install -r requirements.txt
     ```
 
-3.  **Set up database** (Using PostgreSQL):
-    In exam_session\settings.py enter your Postgre user credentials.
-    Create a database with the corresponding name ("exam_session_db")
+3.  **Configure environment variables**
+   * Copy `.env.template` to `.env`
+   * Set values for:
+     * `SECRET_KEY`
+     * `DEBUG`
+     * `ALLOWED_HOSTS`
+     * `DB_NAME`
+     * `DB_USER`
+     * `DB_PASS`
+     * `DB_HOST`
+     * `DB_PORT`
 
 4.  **Apply migrations**:
     ```bash
@@ -64,24 +96,49 @@ A simple Django-based web application for managing university exam sessions, inc
     python main.py
     ```
 
-6.  **Run the development server**:
+6.  **Create a superuser**:
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+7.  **Run the development server**:
     ```bash
     python manage.py runserver
     ```
 
-7.  **Access the application**:
+8. **Access the application**:
     Open your browser and navigate to `http://127.0.0.1:8000/`.
 
 ---
 
 ## Usage
 
-*   **Home**: Dashboard with quick stats and recent activity.
-*   **Majors**: List of all majors. Click "Create New Major" to add one.
-*   **Exam Halls**: List of halls. Use the search bar to filter by computer availability.  
-    *Note: You are not allowed to delete exam halls or edit their capacity and computer availability fields, if there is already an exam hosted in them!*
-*   **Exams**: List of scheduled exams. Use the "Create New Exam" button to start the scheduling wizard.
-*   All models feature Edit and Delete functions.
+* **Home**: Overview page with faculty-related data
+* **Dashboard**: Summary statistics and project info
+* **Accounts**: Register, log in, log out, and view profile
+* **Faculties**: Manage faculties and view their related majors, exams, and halls
+* **Majors**: Browse, search, and manage majors
+* **Exam Halls**: Manage halls and their capacity/computer-room settings
+* **Exams**: Create and edit exams using the scheduling wizard
+* **Error Pages**: Friendly custom pages for common HTTP errors
+
+## Testing
+
+Run the test suite with:
+```bash
+python manage.py test
+```
+
+---
+
+## Notes
+
+* The project uses a custom user model.
+* Project depends on superuser to manage user groups.
+* Some views require authentication and/or permissions.
+* Exam scheduling includes validation to avoid conflicts and capacity issues.
+* Custom error pages are available when `DEBUG = False`.
+
 ---
 
 ## License

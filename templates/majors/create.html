@@ -1,6 +1,6 @@
 {% extends 'common/base.html' %}
 
-{% block title %}{{ page_title }}{% endblock %}
+{% block title %}Create Major{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -38,9 +38,9 @@
                         </div>
                     {% endfor %}
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                         <a href="{% url 'majors:list' %}" class="btn btn-secondary me-md-2">Cancel</a>
-                        <button type="submit" class="btn btn-success">Create Major</button>
+                        <button type="submit" class="btn btn-primary">Save Major</button>
                     </div>
                 </form>
             </div>

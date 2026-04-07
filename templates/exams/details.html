@@ -6,7 +6,7 @@
 {% block content %}
 <div class="row mb-4">
     <div class="col-12">
-        <h1 class="display-4">{{ searched_exam.subject }}</h1>
+        <h1 class="display-4">{{ exam.subject }}</h1>
         <p class="lead">Exam details and assigned halls.</p>
         <a href="{% url 'exams:list' %}" class="btn btn-secondary">Back to Exams List</a>
     </div>
@@ -19,15 +19,19 @@
                 Exam Information
             </div>
             <div class="card-body">
-                <p><strong>Subject:</strong> {{ searched_exam.subject }}</p>
-                <p><strong>Major:</strong> {{ searched_exam.major.name|default:"N/A" }}</p>
-                <p><strong>Date:</strong> {{ searched_exam.date|date:"F j, Y" }}</p>
-                <p><strong>Time:</strong> {{ searched_exam.start_time|time:"g:i a" }} - {{ searched_exam.end_time|time:"g:i a" }}</p>
-                <p><strong>Examinees:</strong> {{ searched_exam.number_of_examinees }}</p>
-                <p><strong>Total exam hall capacity:</strong> {% sum_capacity searched_exam.exam_halls.all %}</p>
-                <p><strong>Needs Computers:</strong> {{ searched_exam.needs_computers|yesno:"Yes,No" }}</p>
-                <a href="{% url 'exams:edit' searched_exam.pk %}" class="btn btn-warning">Edit</a>
-                <a href="{% url 'exams:delete' searched_exam.pk %}" class="btn btn-danger">Delete</a>
+                <p><strong>Subject:</strong> {{ exam.subject }}</p>
+                <p><strong>Major:</strong> {{ exam.major.name|default:"N/A" }}</p>
+                <p><strong>Date:</strong> {{ exam.date|date:"F j, Y" }}</p>
+                <p><strong>Time:</strong> {{ exam.start_time|time:"g:i a" }} - {{ exam.end_time|time:"g:i a" }}</p>
+                <p><strong>Examinees:</strong> {{ exam.number_of_examinees }}</p>
+                <p><strong>Total exam hall capacity:</strong> {% sum_capacity exam.exam_halls.all %}</p>
+                <p><strong>Needs Computers:</strong> {{ exam.needs_computers|yesno:"Yes,No" }}</p>
+                {% if perms.exams.change_exam %}
+                <a href="{% url 'exams:edit' exam.pk %}" class="btn btn-warning">Edit</a>
+                {% endif %}
+                {% if perms.exams.delete_exam %}
+                <a href="{% url 'exams:delete' exam.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -36,9 +40,9 @@
 <div class="row">
     <div class="col-12">
         <h3>Assigned Exam Halls</h3>
-        {% if searched_exam.exam_halls.all %}
+        {% if exam.exam_halls.all %}
             <div class="row">
-                {% for hall in searched_exam.exam_halls.all %}
+                {% for hall in exam.exam_halls.all %}
                 <div class="col-md-4 mb-3">
                     <div class="card h-100">
                         <div class="card-body">
@@ -47,7 +51,9 @@
                                 <strong>Capacity:</strong> {{ hall.capacity }}<br>
                                 <strong>Computer Room:</strong> {{ hall.is_computer_room|yesno:"Yes,No" }}
                             </p>
+                            {% if perms.exam_halls.view_examhall %}
                             <a href="{% url 'exam_halls:details' hall.pk %}" class="btn btn-primary">View Hall Details</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 {% extends 'common/base.html' %}
 
-{% block title %}{{ 'Exams' }}{% endblock %}
+{% block title %}Exams{% endblock %}
 
 {% block content %}
 <div class="row mb-4">
@@ -25,19 +25,21 @@
             </div>
         </form>
     </div>
+    {% if perms.exams.add_exam %}
     <div class="col-md-4 text-end">
         <a href="{% url 'exams:create' %}" class="btn btn-success">Create New Exam</a>
     </div>
+    {% endif %}
 </div>
 
-
-<div class="row">
-    {% if list_exams %}
-        {% for exam in list_exams %}
+{% if user.is_authenticated and user_exams %}
+    <h2 class="mb-3">Your Exams</h2>
+    <div class="row mb-5">
+        {% for exam in user_exams %}
         <div class="col-md-4 mb-4">
-            <div class="card h-100">
+            <div class="card h-100 border-primary">
                 <div class="card-body">
-                    <h5 class="card-title">{{ exam.subject }}</h5>
+                    <h5 class="card-title text-primary">{{ exam.subject }}</h5>
                     <p class="card-text">
                         <strong>Date:</strong> {{ exam.date|date:"F j, Y" }}<br>
                         <strong>Time:</strong> {{ exam.start_time|time:"g:i a" }} - {{ exam.end_time|time:"g:i a" }}<br>
@@ -45,8 +47,12 @@
                     </p>
                     <div class="d-grid gap-2">
                         <a href="{% url 'exams:details' exam.pk %}" class="btn btn-primary">View Details</a>
+                        {% if perms.exams.change_exam %}
                         <a href="{% url 'exams:edit' exam.pk %}" class="btn btn-warning">Edit</a>
+                        {% endif %}
+                        {% if perms.exams.delete_exam %}
                         <a href="{% url 'exams:delete' exam.pk %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="card-footer text-muted">
@@ -55,12 +61,93 @@
             </div>
         </div>
         {% endfor %}
-    {% else %}
-        <div class="col-12">
-            <div class="alert alert-info" role="alert">
-                No exams found.
+    </div>
+
+    <div class="accordion mb-4" id="allExamsAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingAllExams">
+          <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllExams" aria-expanded="false" aria-controls="collapseAllExams">
+            All Other Exams
+          </button>
+        </h2>
+        <div id="collapseAllExams" class="accordion-collapse collapse" aria-labelledby="headingAllExams" data-bs-parent="#allExamsAccordion">
+          <div class="accordion-body">
+            <div class="row pt-3">
+                {% if list_exams %}
+                    {% for exam in list_exams %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ exam.subject }}</h5>
+                                <p class="card-text">
+                                    <strong>Date:</strong> {{ exam.date|date:"F j, Y" }}<br>
+                                    <strong>Time:</strong> {{ exam.start_time|time:"g:i a" }} - {{ exam.end_time|time:"g:i a" }}<br>
+                                    <strong>Major:</strong> {{ exam.major.name|default:"N/A" }}
+                                </p>
+                                <div class="d-grid gap-2">
+                                    <a href="{% url 'exams:details' exam.pk %}" class="btn btn-primary">View Details</a>
+                                    {% if perms.exams.change_exam %}
+                                    <a href="{% url 'exams:edit' exam.pk %}" class="btn btn-warning">Edit</a>
+                                    {% endif %}
+                                    {% if perms.exams.delete_exam %}
+                                    <a href="{% url 'exams:delete' exam.pk %}" class="btn btn-danger">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Examinees: {{ exam.number_of_examinees }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12">
+                        <div class="alert alert-info" role="alert">
+                            No other exams found.
+                        </div>
+                    </div>
+                {% endif %}
             </div>
+          </div>
         </div>
-    {% endif %}
-</div>
+      </div>
+    </div>
+{% else %}
+    <div class="row">
+        {% if list_exams %}
+            {% for exam in list_exams %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ exam.subject }}</h5>
+                        <p class="card-text">
+                            <strong>Date:</strong> {{ exam.date|date:"F j, Y" }}<br>
+                            <strong>Time:</strong> {{ exam.start_time|time:"g:i a" }} - {{ exam.end_time|time:"g:i a" }}<br>
+                            <strong>Major:</strong> {{ exam.major.name|default:"N/A" }}
+                        </p>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'exams:details' exam.pk %}" class="btn btn-primary">View Details</a>
+                            {% if perms.exams.change_exam %}
+                            <a href="{% url 'exams:edit' exam.pk %}" class="btn btn-warning">Edit</a>
+                            {% endif %}
+                            {% if perms.exams.delete_exam %}
+                            <a href="{% url 'exams:delete' exam.pk %}" class="btn btn-danger">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Examinees: {{ exam.number_of_examinees }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    No exams found.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
 {% endblock %}

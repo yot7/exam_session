@@ -1,0 +1,53 @@
+{% extends 'common/base.html' %}
+
+{% block title %}{{ page_title }} - Exam Session{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">About Us</h1>
+        <p class="lead text-muted">A quick glance at the current scale of our Exam Session system.</p>
+    </div>
+
+    <div class="row text-center justify-content-center mb-5">
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 bg-primary text-white h-100 shadow">
+                <div class="card-body py-5">
+                    <h2 class="display-3 fw-bold">{{ users_count }}</h2>
+                    <h5 class="mt-3">Registered Users</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 bg-success text-white h-100 shadow">
+                <div class="card-body py-5">
+                    <h2 class="display-3 fw-bold">{{ halls_count }}</h2>
+                    <h5 class="mt-3">Exam Halls</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 bg-info text-white h-100 shadow">
+                <div class="card-body py-5">
+                    <h2 class="display-3 fw-bold">{{ majors_count }}</h2>
+                    <h5 class="mt-3">Active Majors</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 bg-warning text-white h-100 shadow">
+                <div class="card-body py-5">
+                    <h2 class="display-3 fw-bold">{{ exams_count }}</h2>
+                    <h5 class="mt-3">Total Exams</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4 pb-5">
+        <a href="{% url 'common:home' %}" class="btn btn-outline-primary btn-lg px-4">
+            &larr; Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}
